@@ -38,12 +38,16 @@ def clean_data(df):
     # concatenate the original dataframe with the new `categories` dataframe
     df1 = pd.concat([df,categories], axis=1)
 
+    # drop NA values
+    df1 = df1[df1.related != 2]
+    df1 = df1.dropna(subset=['related'])
+    
     # drop duplicates
     df1 = df1.drop_duplicates()
 
-    # drop 'original' & 'id' columns and check number of duplicates
+    # drop 'original' & 'id' columns
     df1.drop(['original','id'],axis=1,inplace=True)
-    df1.duplicated().value_counts()
+
     return df1
         
 def save_data(df, database_filename):
