@@ -6,6 +6,8 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
+    '''Loading all data from csv and prepar/return DataFrame
+    '''
     # load messages dataset
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
@@ -15,6 +17,9 @@ def load_data(messages_filepath, categories_filepath):
     return df
 
 def clean_data(df):
+    '''Cleaning the data by splitting and merging both dfs
+    '''
+    
     # create a dataframe of the 36 individual category columns
     categories = df['categories'].str.split(';',expand=True)
     categories.columns = categories.iloc[0].apply(lambda x: x[:-2])
@@ -42,6 +47,8 @@ def clean_data(df):
     return df1
         
 def save_data(df, database_filename):
+     ''' Store data in database
+    '''
     # create engine and store data
     print(database_filename)
     engine = create_engine(f"sqlite:///{database_filename}")
