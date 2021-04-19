@@ -30,7 +30,9 @@ def load_data(database_filepath):
     engine = create_engine("sqlite:///data/DisasterResponse.db")
     df = pd.read_sql_table('messages',engine)
     df = df.drop(['genre'],axis=1)
+    df = df.drop(['original','id'],axis=1)
     X = df['message']
+    X = X.astype(str)
     y = df.loc[:, df.columns != 'message']
     return X, y
 
@@ -78,7 +80,7 @@ def evaluate_model(model, X_test, y_test, category_names):
     '''
     
     # predict categories
-    y_pred = pipeline.predict(X_test)
+    y_pred = model.predict(X_test)
 
     # get num of columns
     num = len(y_pred.T)
