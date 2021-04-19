@@ -24,6 +24,8 @@ nltk.download('wordnet')
 
 
 def load_data(database_filepath):
+    ''' Load data from DBC
+    '''
     # load data from database
     engine = create_engine("sqlite:///data/DisasterResponse.db")
     df = pd.read_sql_table('messages',engine)
@@ -34,6 +36,8 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    ''' prepare and return clean tokens
+    '''
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -45,6 +49,8 @@ def tokenize(text):
     return clean_tokens
 
 def build_model():
+    ''' Building the model with pipeline and gridsearch
+    '''
     X, y = make_multilabel_classification(n_classes=3, random_state=0)
     
     # define pipeline
@@ -65,7 +71,11 @@ def build_model():
     return cv
     
 
-def evaluate_model(model, X_test, Y_test, category_names):
+def evaluate_model(model, X_test, y_test, category_names):
+    ''' Evaluationg the model
+    Input: model from GridSearch, Testparameters for X and Y in and category_names
+    Output: None
+    '''
     
     # predict categories
     y_pred = pipeline.predict(X_test)
@@ -80,6 +90,8 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    ''' Save model as pickle file
+    '''
     pickle.dump(model, open("classifier.pkl", 'wb'))
 
 
