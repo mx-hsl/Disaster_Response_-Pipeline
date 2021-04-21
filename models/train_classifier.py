@@ -30,12 +30,8 @@ def load_data(database_filepath):
     engine = create_engine("sqlite:///data/DisasterResponse.db")
     df = pd.read_sql_table('messages',engine)
     df = df.drop(['genre'],axis=1)
-<<<<<<< HEAD
     #df = df.drop(['original'],axis=1)
     #df = df.drop(['id'],axis=1)
-=======
-    df = df.drop(['original','id'],axis=1)
->>>>>>> bbb62c881f8793fcb2ff49c7c7dd94561d82dcfb
     X = df['message']
     X = X.astype(str)
     y = df.loc[:, df.columns != 'message']
@@ -78,11 +74,8 @@ def build_model():
     return cv
     
 
-<<<<<<< HEAD
+
 def evaluate_model(model, X_test, y_test):
-=======
-def evaluate_model(model, X_test, y_test, category_names):
->>>>>>> bbb62c881f8793fcb2ff49c7c7dd94561d82dcfb
     ''' Evaluationg the model
     Input: model from GridSearch, Testparameters for X and Y in and category_names
     Output: None
