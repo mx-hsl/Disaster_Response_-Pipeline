@@ -50,13 +50,8 @@ def clean_data(df):
 
     return df1
         
-<<<<<<< HEAD
 def save_data(df, database_filepath):
     ''' Store data in database
-=======
-def save_data(df, database_filename):
-     ''' Store data in database
->>>>>>> bbb62c881f8793fcb2ff49c7c7dd94561d82dcfb
     '''
     # create engine and store data
     engine = create_engine('sqlite:///{}'.format(database_filepath))

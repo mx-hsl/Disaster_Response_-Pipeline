@@ -3,7 +3,7 @@ Built a pipeline and model for classification of messages using sklearn
 
 ## Motivation
 Within this project a webapp was build were message strings can be categoriezed in different categories. By using other classifier or adding more parameters to the GridSearch optimization workflow the results can be improved further. Furthermore, some other features including into the pipeline can be usefull to get the classifier better.
-![Webapp](webapp.png)
+![Webapp](webapp.png)git pull
 ## Installation
 fork and clone the project to your local machine to run the project there.
 ```
