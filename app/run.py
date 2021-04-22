@@ -40,8 +40,31 @@ def index():
     
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
+    # Plot 1
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+    
+    # Plot 2 / 3
+    cat_list = ['ralated', 'request', 'offer', 'aid_related', 'medical_help',
+   'medical_products', 'search_and_rescue', 'security', 'military',
+   'child_alone', 'water', 'food', 'shelter', 'clothing', 'money',
+   'missing_people', 'refugees', 'death', 'other_aid',
+   'infrastructure_related', 'transport', 'buildings', 'electricity',
+   'tools', 'hospitals', 'shops', 'aid_centers', 'other_infrastructure',
+   'weather_related', 'floods', 'storm', 'fire', 'earthquake', 'cold',
+   'other_weather', 'direct_report']
+    # 5 Most tagged categories
+    tagged = df[cat_list]
+    most_tagged_cats = tagged.sum().sort_values()[len(cat_list)-5:].index.tolist()
+    df_most_tagged = tagged[most_tagged_cats]
+    most_tagged_values = df_most_tagged.sum().tolist()
+
+    
+    # 5 least Tagged categories
+    least_tagged_cats = tagged.sum().sort_values()[:5].index.tolist()
+    df_least_tagged = tagged[least_tagged_cats]
+    least_tagged_values = df_least_tagged.sum().tolist()
+
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -69,13 +92,13 @@ def index():
         {
             'data': [
                 Bar(
-                    x=genre_names,
-                    y=genre_counts
+                    x=most_tagged_cats,
+                    y=most_tagged_values
                 )
             ],
 
             'layout': {
-                'title': 'Distribution of Message Categories',
+                'title': 'Most tagged Categories',
                 'yaxis': {
                     'title': "Count"
                 },
@@ -89,18 +112,18 @@ def index():
         {
             'data': [
                 Bar(
-                    x=genre_names,
-                    y=genre_counts
+                    x=least_tagged_cats,
+                    y=least_tagged_values
                 )
             ],
 
             'layout': {
-                'title': 'Distribution of Message Genres',
+                'title': 'Least tagged Categories',
                 'yaxis': {
                     'title': "Count"
                 },
                 'xaxis': {
-                    'title': "Genre"
+                    'title': "Category"
                 }
             }
         },
